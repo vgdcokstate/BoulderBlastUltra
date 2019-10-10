@@ -8,9 +8,9 @@ public class CameraMovement : MonoBehaviour
     private const float Y_ANGLE_MAX = -80.0f;
 
     public Transform target;
-    public float distance = 4.0f;
-    public float xSensitivity = 10.0f;
-    public float ySensitivity = 10.0f;
+    public float distance = -5.0f;
+    public float xSensitivity = 8.0f;
+    public float ySensitivity = 4.0f;
 
     private float currentX = 0.0f;
     private float currentY = 0.0f;
