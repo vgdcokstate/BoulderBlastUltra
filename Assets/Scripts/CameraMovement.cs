@@ -26,10 +26,7 @@ public class CameraMovement : MonoBehaviour
         {
             _currentX += Input.GetAxis("Mouse X");
             _currentY += Input.GetAxis("Mouse Y");
-
-            Debug.Log($"{_currentX}, {_currentY}");
-
-            _currentY = Mathf.Clamp(_currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+			_currentY = Mathf.Clamp(_currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
