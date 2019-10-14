@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    private const float Y_ANGLE_MIN = 50.0f;
-    private const float Y_ANGLE_MAX = -80.0f;
+    private const float Y_ANGLE_MAX = 10f;
+    private const float Y_ANGLE_MIN = -12.5f;
 
-    public Transform target;
-    public float distance = -5.0f;
-    public float xSensitivity = 8.0f;
-    public float ySensitivity = 4.0f;
+    public Transform Target;
+    public float Distance = -5.0f;
+    public float X_Sensitivity = 8.0f;
+    public float Y_Sensitivity = 4.0f;
 
-    private float currentX = 0.0f;
-    private float currentY = 0.0f;
-    private bool rightClicked = false;
+    private float _currentX = 0.0f;
+    private float _currentY = 0.0f;
 
     void Start()
     {
@@ -23,39 +22,26 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKey(KeyCode.Mouse1))
         {
-            rightClicked = true;
-        }
-        else if(Input.GetMouseButtonUp(1))
-        {
-            rightClicked = false;
-        }
+            _currentX += Input.GetAxis("Mouse X");
+            _currentY += Input.GetAxis("Mouse Y");
 
-        if (rightClicked)
-        {
-            currentX += Input.GetAxis("Mouse X");
-            currentY += Input.GetAxis("Mouse Y");
-            currentY = Mathf.Clamp(currentY, Y_ANGLE_MAX, Y_ANGLE_MIN);
+            Debug.Log($"{_currentX}, {_currentY}");
+
+            _currentY = Mathf.Clamp(_currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Cursor.visible == false)
-            {
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.visible = false;
-            }
+            Cursor.visible = !Cursor.visible;
         }
     }
     void LateUpdate()
     {
-        Vector3 direction = new Vector3(0.0f, 0.0f, -1 * distance);
-        Quaternion rotation = Quaternion.Euler(ySensitivity * currentY, xSensitivity * currentX, 0.0f);
-        transform.position = target.position + rotation * direction;
-        transform.LookAt(target.position);
+        Vector3 direction = new Vector3(0.0f, 0.0f, -1 * Distance);
+        Quaternion rotation = Quaternion.Euler(Y_Sensitivity * _currentY, X_Sensitivity * _currentX, 0.0f);
+        transform.position = Target.position + rotation * direction;
+        transform.LookAt(Target.position);
     }
 }

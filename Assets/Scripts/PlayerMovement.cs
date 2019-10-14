@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Rigidbody rb;
-    public float speed = 10.0f;
     public GameObject Camera;
+    public float speed = 10.0f;
+    private Rigidbody _rb;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,6 +28,6 @@ public class PlayerMovement : MonoBehaviour
         movement = Camera.transform.TransformDirection(movement);
         movement.y = 0.0f;
 
-        rb.AddForce(speed * movement);
+        _rb.AddForce(speed * movement);
     }
 }
